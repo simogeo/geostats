@@ -22,26 +22,29 @@ To use it, just download the geostats package and include the following lines in
 API
 ========================
 
-**Attributes :**   
-- serie
-- separator
-- method
+**Attributes :**
+
+- *serie* : contains the statistic population. Default : empty.
+- *separator* : used to separate ranges values, by default : ' - '
+- *method* : give information regarding the classification method used. Default : empty.
    
 **Methods :**
-- min();
-- max();
-- sum();
-- pop();
-- mean();
-- median();
-- _nodata();
-- sorted();
-- info();
-- getEqInterval(nbClass);
-- getQuantile(nbClass);
-- getJenks(nbClass);
-- getRanges(array);
-- getSortedlist();
+
+- *min();* : return the min value
+- *max();* : return the max value
+- *sum();* : return the sum of the population
+- *pop();* : return the number of individuals
+- *mean();* : return the mean
+- *median();* : return the median
+- *setSerie();* : fill up the *serie* attribute
+- *_nodata();* : check if *serie* attribute if not empty
+- *sorted();* : return the sorted (asc) serie
+- *info();* : return information about the population in text format
+- *getEqInterval(nbClass);* : Do an equal interval classification and return bounds into an array
+- *getQuantile(nbClass);* : Do a quantile classification and return bounds into an array
+- *getJenks(nbClass);* : Do a Jenks classification and return bounds into an array
+- *getRanges(array);* : return an array of classes range. 
+- *getSortedlist();* : return the sorted serie in text format
  
  
 MIT LICENSE
