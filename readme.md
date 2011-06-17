@@ -44,7 +44,7 @@ API
 - getSortedlist();
  
  
-LICENSE
+MIT LICENSE
 ========================
  
  Copyright (c) 2011 Simon Georget
