@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+   <title>geostats.js (by simon georget)</title>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+   <script type="text/javascript" src="lib/jenks.util.js"></script>
+   <script type="text/javascript" src="lib/geostats.js"></script>
+   <style type="text/css">
+	  <!--
+	  body {
+	    font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	    color:#333;
+	    font-size: 0.9em;
+	    background-color: #F7F7F7;
+	  }
+	  .container {margin:0 auto;width:60%;}
+	  .serie strong {color:#333;}
+	  .serie {font-size: .9em;color:#555;}
+	  .classes {margin:0em 4em 2em;}
+	  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
+	  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
+	  h3 {color:#555;font-size: .9em}
+	  hr {
+		height: 1px;
+		margin: -0.5em 0;
+		padding: 0;
+		color: #ddd;
+		background-color: #ddd;
+		border: 0;
+	  }
+	
+	  -->
+  </style>
+   <script type="text/javascript">
+   	$(document).ready(function() {
+   		$.getJSON('tests/test.json',function(data) {
+   			var items = []; // will store values
+   			
+   			// Don't forget to use firebug console to retrieve your data
+   			// console.log(data.features);
+   			
+   			$.each(data.features, function(i,feature){
+   				items.push(feature.properties.Pop_2006);
+   			});
+
+   			var dataJson = items;
+
+   			// Seventh serie
+   			geostats.setSerie(dataJson);
+
+   			// we get Eq interval classification
+   			var a = geostats.getEqInterval(5);
+   			var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+   				str += '<div class="classes">';
+   			var ranges = geostats.getRanges(a);
+   			for(i = 0; i < ranges.length ; i++) {
+   				str += ranges[i] + "\n";
+   			}
+   				str += '<\/div>';
+
+   	   		var content   = '';
+   	   			content  += '<h2>Sample 7 - Loading data from JSON file (with jQuery)<\/h2>';
+   	   			content  += '<p>' + nl2br(geostats.info()) + '<\/p>';
+   				content  += '<p>' + nl2br(str) + '<\/p>';
+				content  += '<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>';
+				content  += '<hr \/>';
+
+			jQuery('#sample-7').html(content);
+   		});
+   		
+	 });
+ 	</script>
+   <script type="text/javascript">
+	// from https://raw.github.com/kvz/phpjs/master/functions/strings/nl2br.js
+	function nl2br (str, is_xhtml) {
+	    // http://kevin.vanzonneveld.net
+	    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	    // +   improved by: Philip Peterson
+	    // +   improved by: Onno Marsman
+	    // +   improved by: Atli ÃžÃ³r
+	    // +   bugfixed by: Onno Marsman
+	    // +      input by: Brett Zamir (http://brett-zamir.me)
+	    // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	    // +   improved by: Brett Zamir (http://brett-zamir.me)
+	    // +   improved by: Maximusya
+	    // *     example 1: nl2br('Kevin\nvan\nZonneveld');
+	    // *     returns 1: 'Kevin<br />\nvan<br />\nZonneveld'
+	    // *     example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
+	    // *     returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+	    // *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
+	    // *     returns 3: '<br />\nOne<br />\nTwo<br />\n<br />\nThree<br />\n'
+	    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+
+	    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+	}
+	</script>
+</head>
+<body>
+
+<div class="container">
+	<h1>geostats - Javascript classification library <em>samples</em></h1>
+	<script type="text/javascript"><!--
+	
+	// Samples datasets
+	// test integer - 14 values
+	var a1 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36, 5, 21, 23, 45);
+	// test integer - 17 values
+	var a2 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36, 5, 21, 23, 45, 12, 31, 38);
+	// test float - 5 values
+	var a3 = Array(1.54567, 0.7623122, 1.895432, 2.435357, 0.11143);
+	// test float
+	var a4 = Array(0, 1.2, 3, 2.5, 1.6, 2.2, 3.1, 2.8, 1.1, 2.7, 0.1);
+	// test integer - 10 values
+	var a5 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36);
+	// test integer - 11 values
+	//var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36);
+	var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36, 4, 9, 35, 12, 42, 43, 56, 12, 23, 
+				43, 19, 11, -1, 51, -6, 34, 33,41, 45, 23, -3, 3, 54, 1, 18, 44, 41,28, 16, 19, 
+				35, 44, 21, 23, -3, 5, 64, 15, 17, 7, 93, 6, 16, 47, 13, 46, 53, 10, 30, 31, 32, 
+				58, 28, 32, 46,53, 31, 2, 36, 41, 23, 3, 8, 15, 54, 35, 79, 15, 83, 6,-9, 78, 74, 
+				56, 78, 45, 62, 19, 70, 23, 51, 73, 67, 78, 34, 52, 61, 60, 11, 26, 48, 15, 2);
+
+	// First serie
+	geostats.setSerie(a1);
+	document.write('<h2>Sample 1 - basic statistics methods <\/h2>');
+	document.write('<p>geostats.min() : ' + geostats.min() + '<\/p>');
+	document.write('<p>geostats.max() : ' + geostats.max() + '<\/p>');
+	document.write('<p>geostats.sum() : ' + geostats.sum() + '<\/p>');
+	document.write('<p>geostats.pop() : ' + geostats.pop() + '<\/p>');
+	document.write('<p>geostats.mean() : ' + geostats.mean() + '<\/p>');
+	document.write('<p>geostats.median() : ' + geostats.median() + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+
+	// Second serie
+	geostats.setSerie(a2);
+	document.write('<h2>Sample 2 - geostats.info() <\/h2>');
+	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+
+	// Third serie
+	geostats.setSerie(a3);
+	document.write('<h2>Sample 3 - handle both integer and float values <\/h2>');
+	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+
+	// Fourth serie
+	geostats.setSerie(a5);
+
+	// we get Eq interval classification 3 classes
+	var a = geostats.getEqInterval(3);
+	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+	// we get Eq interval classification 4 classes
+	var a = geostats.getEqInterval(4);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+		
+	// we get Eq interval classification 5 classes
+	var a = geostats.getEqInterval(5);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+		
+	document.write('<h2>Sample 4 - classification : choose classes number <\/h2>');
+	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(str) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+	
+	// Fifth serie
+	geostats.setSerie(a4);
+
+	// we get Eq interval classification
+	var a = geostats.getEqInterval(4);
+	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+	// we get Quantile classification
+	var a = geostats.getQuantile(4);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+	// we get Jenks classification
+	var a = geostats.getJenks(4);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+		
+	document.write('<h2>Sample 5 - classification : choose classification method<\/h2>');
+	document.write('<h3>Equal Interval, Quantile, Jenks<\/h3>');
+	document.write('<div>3 methods: <\/div>');
+	document.write('<ul>');
+	document.write('<li><em>geostats.getEqInterval(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getQuantile(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getJenks(nbClass);<\/em><\/<li>');
+	document.write('<\/ul>');
+	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(str) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+
+	// Sixth serie
+	geostats.setSerie(a6);
+
+	// we get Eq interval classification
+	var a = geostats.getEqInterval(3);
+	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+	// we get Quantile classification
+	var a = geostats.getQuantile(5);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+
+	// we get Jenks classification
+	var a = geostats.getJenks(4);
+		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+		str += '<div class="classes">';
+	var ranges = geostats.getRanges(a);
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+		str += '<\/div>';
+		
+	document.write('<h2>Sample 6 - choose the right classification<\/h2>');
+	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(str) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<hr \/>');
+
+	document.write('<div id="sample-7"><\/div>');
+	
+	--></script>
+</div>
+</body>
+</html>
