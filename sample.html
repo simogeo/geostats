@@ -6,6 +6,8 @@
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
    <script type="text/javascript" src="lib/jenks.util.js"></script>
    <script type="text/javascript" src="lib/geostats.js"></script>
+   <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+   <script type="text/javascript" src="tests/openlayers_sample.js"></script>
    <style type="text/css">
 	  <!--
 	  body {
@@ -18,6 +20,7 @@
 	  .serie strong {color:#333;}
 	  .serie {font-size: .9em;color:#555;}
 	  .classes {margin:0em 4em 2em;}
+	  #map {width:100%;height:300px;border: 1px solid #ccc;background-color: #eee}
 	  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
 	  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
 	  h3 {color:#555;font-size: .9em}
@@ -29,10 +32,11 @@
 		background-color: #ddd;
 		border: 0;
 	  }
-	
+	  #footer {font-size:0.8em;text-align: center;color:#777;margin:2em 0 1em;padding:.3em}
 	  -->
   </style>
    <script type="text/javascript">
+   var foo = 'bar';
    	$(document).ready(function() {
    		$.getJSON('tests/test.json',function(data) {
    			var items = []; // will store values
@@ -46,11 +50,12 @@
 
    			var dataJson = items;
 
+   			
    			// Seventh serie
    			geostats.setSerie(dataJson);
 
    			// we get Eq interval classification
-   			var a = geostats.getEqInterval(5);
+   			var a = geostats.getQuantile(5);
    			var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
    				str += '<div class="classes">';
    			var ranges = geostats.getRanges(a);
@@ -67,6 +72,15 @@
 				content  += '<hr \/>';
 
 			jQuery('#sample-7').html(content);
+
+			// sample-8
+			// for openlayers representation
+   			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
+   			var class_x = ranges;
+
+   			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + geostats.method + '</p>');
+   			
+   			init(color_x, class_x);
    		});
    		
 	 });
@@ -273,8 +287,13 @@
 	document.write('<hr \/>');
 
 	document.write('<div id="sample-7"><\/div>');
-	
 	--></script>
+	<div id="sample-8">
+		<h2>Sample 8 - finally, a choropleth representation (with openlayers)</h2>
+		<div id="method"></div>
+		<div id="map"></div>
+	</div>
+	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license</div>
 </div>
 </body>
 </html>
