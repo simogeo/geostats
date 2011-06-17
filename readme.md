@@ -44,8 +44,8 @@ API
 - getSortedlist();
  
  
- LICENSE
- ========================
+LICENSE
+========================
  
  Copyright (c) 2011 Simon Georget
 
