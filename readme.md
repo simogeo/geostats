@@ -14,9 +14,11 @@ and **few statistical methods**
 
 To use it, just download the geostats package and include the following lines into your html page :
 
+```html
    <script type="text/javascript" src="path/to/lib/jenks.util.js"></script>
    <script type="text/javascript" src="path/to/lib/geostats.js"></script>
-   
+```
+
 API
 ========================
 
