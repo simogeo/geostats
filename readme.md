@@ -19,6 +19,8 @@ To use it, just download the geostats package and include the following lines in
    <script type="text/javascript" src="path/to/lib/geostats.js"></script>
 ```
 
+**Please see the samples page to understand how it works!**
+
 API
 ========================
 
@@ -26,7 +28,11 @@ API
 
 - *serie* : contains the statistic population. Default : empty.
 - *separator* : used to separate ranges values, by default : ' - '
+- *legendSeparator* : by default, equals to *separator* value
 - *method* : give information regarding the classification method used. Default : empty.
+- *bounds* : classification bounds
+- *ranges* : classification ranges
+- *colors* : classification colors
    
 **Methods :**
 
@@ -37,13 +43,16 @@ API
 - *mean();* : return the mean
 - *median();* : return the median
 - *setSerie();* : fill up the *serie* attribute
+- *setColors();* : fill up the *colors* attribute
+- *setRanges()* : fill up the *ranges* attribute (array of classes range)
 - *_nodata();* : check if *serie* attribute if not empty
 - *sorted();* : return the sorted (asc) serie
 - *info();* : return information about the population in text format
 - *getEqInterval(nbClass);* : Do an equal interval classification and return bounds into an array
 - *getQuantile(nbClass);* : Do a quantile classification and return bounds into an array
 - *getJenks(nbClass);* : Do a Jenks classification and return bounds into an array
-- *getRanges(array);* : return an array of classes range. 
+- *getRanges(array);* : return an array of classes range (*ranges* value)
+- *getHtmlLegend(colors, legend, callback);* : return a legend in html format
 - *getSortedlist();* : return the sorted serie in text format
  
  
