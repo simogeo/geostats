@@ -16,6 +16,15 @@
 	    font-size: 0.8em;
 	    background-color: #F7F7F7;
 	  }
+	  #legend, #legend2 {float:left;width:45%;margin:0 1em 2em 0;}
+	  .legend-block {
+		    border: 1px solid #555555;
+		    display: block;
+		    float: left;
+		    height: 12px;
+		    margin: 0.3em 0.8em 0 2em;
+		    width: 20px;
+		}
 	  .container {margin:0 auto;width:60%;}
 	  .serie strong {color:#333;}
 	  .serie {font-size: .9em;color:#555;}
@@ -36,7 +45,10 @@
 	  -->
   </style>
    <script type="text/javascript">
-   var foo = 'bar';
+   var callback_sample = function(c) {
+		return Math.round(c);
+	};
+	
    	$(document).ready(function() {
    		$.getJSON('tests/test.json',function(data) {
    			var items = []; // will store values
@@ -52,13 +64,13 @@
 
    			
    			// Seventh serie
-   			geostats.setSerie(dataJson);
+   			serie7 = new geostats(dataJson);
 
    			// we get Eq interval classification
-   			var a = geostats.getQuantile(5);
-   			var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+   			var a = serie7.getQuantile(5);
+   			var str  = '<strong>Classification Method : <\/strong>' + serie7.method + " :\n";
    				str += '<div class="classes">';
-   			var ranges = geostats.getRanges(a);
+   			var ranges = serie7.ranges;
    			for(i = 0; i < ranges.length ; i++) {
    				str += ranges[i] + "\n";
    			}
@@ -66,9 +78,9 @@
 
    	   		var content   = '';
    	   			content  += '<h2>Sample 7 - Loading data from JSON file (with jQuery)<\/h2>';
-   	   			content  += '<p>' + nl2br(geostats.info()) + '<\/p>';
+   	   			content  += '<p>' + nl2br(serie7.info()) + '<\/p>';
    				content  += '<p>' + nl2br(str) + '<\/p>';
-				content  += '<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>';
+				content  += '<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie7.getSortedlist() + '<\/p>';
 				content  += '<hr \/>';
 
 			jQuery('#sample-7').html(content);
@@ -76,11 +88,16 @@
 			// sample-8
 			// for openlayers representation
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
+   			serie7.setColors(color_x);
    			var class_x = ranges;
+   			var content = serie7.getHtmlLegend();
+   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend and callback function (<em>here round values<\/em>)', callback_sample);
 
-   			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + geostats.method + '<\/p>');
-   			
+   			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
+   			jQuery('#legend').html(content);
+   			jQuery('#legend2').html(content_flare);
    			init(color_x, class_x);
+   			
    		});
    		
 	 });
@@ -123,10 +140,10 @@
 	var a2 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36, 5, 21, 23, 45, 12, 31, 38);
 	// test float - 5 values
 	var a3 = Array(1.54567, 0.7623122, 1.895432, 2.435357, 0.11143);
-	// test float
-	var a4 = Array(0, 1.2, 3, 2.5, 1.6, 2.2, 3.1, 2.8, 1.1, 2.7, 0.1);
 	// test integer - 10 values
-	var a5 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36);
+	var a4 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36);
+	// test float
+	var a5 = Array(0, 1.2, 3, 2.5, 1.6, 2.2, 3.1, 2.8, 1.1, 2.7, 0.1);
 	// test integer - 11 values
 	//var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36);
 	var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36, 4, 9, 35, 12, 42, 43, 56, 12, 23, 
@@ -136,59 +153,59 @@
 				56, 78, 45, 62, 19, 70, 23, 51, 73, 67, 78, 34, 52, 61, 60, 11, 26, 48, 15, 2);
 
 	// First serie
-	geostats.setSerie(a1);
+	serie1 = new geostats(a1);
 	document.write('<h2>Sample 1 - basic statistics methods <\/h2>');
-	document.write('<p>geostats.min() : ' + geostats.min() + '<\/p>');
-	document.write('<p>geostats.max() : ' + geostats.max() + '<\/p>');
-	document.write('<p>geostats.sum() : ' + geostats.sum() + '<\/p>');
-	document.write('<p>geostats.pop() : ' + geostats.pop() + '<\/p>');
-	document.write('<p>geostats.mean() : ' + geostats.mean() + '<\/p>');
-	document.write('<p>geostats.median() : ' + geostats.median() + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p>geostats.min() : ' + serie1.min() + '<\/p>');
+	document.write('<p>geostats.max() : ' + serie1.max() + '<\/p>');
+	document.write('<p>geostats.sum() : ' + serie1.sum() + '<\/p>');
+	document.write('<p>geostats.pop() : ' + serie1.pop() + '<\/p>');
+	document.write('<p>geostats.mean() : ' + serie1.mean() + '<\/p>');
+	document.write('<p>geostats.median() : ' + serie1.median() + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie1.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 
 	// Second serie
-	geostats.setSerie(a2);
+	serie2 = new geostats(a2);
 	document.write('<h2>Sample 2 - geostats.info() <\/h2>');
-	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p>' + nl2br(serie2.info()) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie2.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 
 	// Third serie
-	geostats.setSerie(a3);
+	serie3 = new geostats(a3);
 	document.write('<h2>Sample 3 - handle both integer and float values <\/h2>');
-	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p>' + nl2br(serie3.info()) + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie3.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 
 	// Fourth serie
-	geostats.setSerie(a5);
+	serie4 = new geostats(a4);
 
 	// we get Eq interval classification 3 classes
-	var a = geostats.getEqInterval(3);
-	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie4.getEqInterval(3);
+	var str  = '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 
 	// we get Eq interval classification 4 classes
-	var a = geostats.getEqInterval(4);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie4.getEqInterval(4);
+		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 		
 	// we get Eq interval classification 5 classes
-	var a = geostats.getEqInterval(5);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie4.getEqInterval(5);
+		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
@@ -196,39 +213,40 @@
 
 		
 	document.write('<h2>Sample 4 - classification : choose classes number <\/h2>');
-	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(serie4.info()) + '<\/p>');
 	document.write('<p>' + nl2br(str) + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie4.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 	
 	// Fifth serie
-	geostats.setSerie(a4);
+	var serie5 = new geostats();
+	serie5.setSerie(a5);
 
 	// we get Eq interval classification
-	var a = geostats.getEqInterval(4);
-	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie5.getEqInterval(4);
+	var str  = '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 
 	// we get Quantile classification
-	var a = geostats.getQuantile(4);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie5.getQuantile(4);
+		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+		var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 
 	// we get Jenks classification
-	var a = geostats.getJenks(4);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	var a = serie5.getJenks(4);
+		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
@@ -242,48 +260,48 @@
 	document.write('<li><em>geostats.getQuantile(nbClass);<\/em><\/<li>');
 	document.write('<li><em>geostats.getJenks(nbClass);<\/em><\/<li>');
 	document.write('<\/ul>');
-	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(serie5.info()) + '<\/p>');
 	document.write('<p>' + nl2br(str) + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie5.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 
 	// Sixth serie
-	geostats.setSerie(a6);
+	var serie6 = new geostats(a6);
 
 	// we get Eq interval classification
-	var a = geostats.getEqInterval(3);
-	var str  = '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	serie6.getEqInterval(3);
+	var str  = '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie6.getRanges(a);
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 
 	// we get Quantile classification
-	var a = geostats.getQuantile(5);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
+	serie6.getQuantile(5);
+		str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie6.getRanges(a);
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 
 	// we get Jenks classification
-	var a = geostats.getJenks(4);
+	serie6.getJenks(4);
 		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
 		str += '<div class="classes">';
-	var ranges = geostats.getRanges(a);
+	var ranges = serie6.getRanges(a);
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
 		str += '<\/div>';
 		
 	document.write('<h2>Sample 6 - choose the right classification<\/h2>');
-	document.write('<p>' + nl2br(geostats.info()) + '<\/p>');
+	document.write('<p>' + nl2br(serie6.info()) + '<\/p>');
 	document.write('<p>' + nl2br(str) + '<\/p>');
-	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + geostats.getSortedlist() + '<\/p>');
+	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie6.getSortedlist() + '<\/p>');
 	document.write('<hr \/>');
 
 	document.write('<div id="sample-7"><\/div>');
@@ -292,6 +310,11 @@
 		<h2>Sample 8 - finally, a choropleth representation (with openlayers)</h2>
 		<div id="method"></div>
 		<div id="map"></div>
+	</div>
+	<div id="sample-9">
+		<h2>Sample 9 - dynamic HTML legend with user input and callback function</h2>
+		<div id="legend"></div>
+		<div id="legend2"></div>
 	</div>
 	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license</div>
 </div>
