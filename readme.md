@@ -1,7 +1,7 @@
-[geostats](http://www.empreinte-urbaine.eu/mapping/geostats/) 
+#geostats![project status](http://stillmaintained.com/simogeo/geostats)#
 ========================
 
-geostats is a tiny standalone JS library for classification released by [Simon Georget](http://www.empreinte-urbaine.eu/)  under MIT license. 
+[geostats](http://www.empreinte-urbaine.eu/mapping/geostats/) is a tiny standalone JS library for classification released by [Simon Georget](http://www.empreinte-urbaine.eu/)  under MIT license. 
 
 It currently supports
 --------------
