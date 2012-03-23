@@ -29,6 +29,7 @@
 	  .serie strong {color:#333;}
 	  .serie {font-size: .9em;color:#555;}
 	  .classes {margin:0em 4em 2em;}
+	  .cnt { font-size: 0.8em;color:#666;font-style: italic;}
 	  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
@@ -91,10 +92,11 @@
 			// sample-8
 			// for openlayers representation
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
+   			//var color_x  = new Array('#ee5588', '#44ee11', '#668811', '#000000');
    			serie7.setColors(color_x);
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
-   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend and callback function (<em>here round values<\/em>)', callback_sample);
+   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend and callback function (<em>here round values<\/em>)', true, callback_sample);
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend').html(content);
@@ -316,7 +318,7 @@
 		<div id="map"></div>
 	</div>
 	<div id="sample-9">
-		<h2>Sample 9 - dynamic HTML legend with user input and callback function</h2>
+		<h2>Sample 9 - dynamic HTML legend with user input, feature count and callback function</h2>
 		<div id="legend"></div>
 		<div id="legend2"></div>
 	</div>
