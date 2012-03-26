@@ -13,7 +13,7 @@ function getClass(val, a) {
 function init(color_x, class_x) {
 
     var lon = 6.3;
-    var lat = 48.6;
+    var lat = 48.73;
     var zoom = 4;
 
     OpenLayers.ImgPath = "http://js.mapbox.com/theme/dark/";
