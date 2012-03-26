@@ -54,6 +54,8 @@ API
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getHtmlLegend(colors, legend, callback);* : return a legend in html format
 - *getSortedlist();* : return the sorted serie in text format
+- *getClass();* : return a given value class
+- *doCount();* : perform count feature by classes, used to display count feature in legend
  
  
 MIT LICENSE
