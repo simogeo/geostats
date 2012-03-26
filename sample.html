@@ -72,6 +72,8 @@
 
    			// we get Eq interval classification
    			var a = serie7.getQuantile(5);
+   			//var a = serie7.getEqInterval(5);
+   			//var a = serie7.getJenks(3);
    			var str  = '<strong>Classification Method : <\/strong>' + serie7.method + " :\n";
    				str += '<div class="classes">';
    			var ranges = serie7.ranges;
@@ -92,11 +94,11 @@
 			// sample-8
 			// for openlayers representation
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
-   			//var color_x  = new Array('#ee5588', '#44ee11', '#668811', '#000000');
+   			// var color_x  = new Array('#ee5588', '#44ee11', '#668811', '#000000', '#3d2e4e');
    			serie7.setColors(color_x);
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
-   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend and callback function (<em>here round values<\/em>)', true, callback_sample);
+   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here round values<\/em>) and feature count', true, callback_sample);
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend').html(content);
