@@ -55,6 +55,7 @@ API
 - *getHtmlLegend(colors, legend, callback);* : return a legend in html format
 - *getSortedlist();* : return the sorted serie in text format
 - *getClass();* : return a given value class
+- *getRangeNum()* : return the number/index of this.ranges that value falls into
 - *doCount();* : perform count feature by classes, used to display count feature in legend
  
  
