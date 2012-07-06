@@ -3,6 +3,9 @@ geostats
 
 [geostats](http://www.empreinte-urbaine.eu/mapping/geostats/) is a tiny standalone JS library for classification released by [Simon Georget](http://www.empreinte-urbaine.eu/)  under MIT license. 
 
+Other contributors : [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind)
+
+
 It currently supports
 --------------
 
