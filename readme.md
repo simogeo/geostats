@@ -3,7 +3,7 @@ geostats
 
 [geostats](http://www.empreinte-urbaine.eu/mapping/geostats/) is a tiny standalone JS library for classification released by [Simon Georget](http://www.empreinte-urbaine.eu/)  under MIT license. 
 
-Other contributors : [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind)
+Other contributors : [Doug Curl](http://kgs.uky.edu/kgsmap/ukengage/) (Jenks algorithm), [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind), 
 
 
 It currently supports
@@ -15,10 +15,9 @@ It currently supports
 
 and **few statistical methods**
 
-To use it, just download the geostats package and include the following lines into your html page :
+To use it, just download the geostats package and include the following line into your html page :
 
 ```html
-   <script type="text/javascript" src="path/to/lib/jenks.util.js"></script><!-- only if using Jenks classification -->
    <script type="text/javascript" src="path/to/lib/geostats.js"></script>
 ```
 
@@ -55,10 +54,10 @@ API
 - *getQuantile(nbClass);* : Do a quantile classification and return bounds into an array
 - *getJenks(nbClass);* : Do a Jenks classification and return bounds into an array
 - *getRanges(array);* : return an array of classes range (*ranges* value)
+- *getRangeNum()* : return the number/index of this.ranges that value falls into
 - *getHtmlLegend(colors, legend, callback);* : return a legend in html format
 - *getSortedlist();* : return the sorted serie in text format
 - *getClass();* : return a given value class
-- *getRangeNum()* : return the number/index of this.ranges that value falls into
 - *doCount();* : perform count feature by classes, used to display count feature in legend
  
  

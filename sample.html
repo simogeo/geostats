@@ -4,7 +4,6 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
    <title>geostats.js (by simon georget)</title>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-   <script type="text/javascript" src="lib/jenks.util.js"></script>
    <script type="text/javascript" src="lib/geostats.js"></script>
    <script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
    <script type="text/javascript" src="tests/openlayers_sample.js"></script>
@@ -193,6 +192,7 @@
 	var a = serie4.getEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
+	
 	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
@@ -201,8 +201,9 @@
 
 	// we get Eq interval classification 4 classes
 	var a = serie4.getEqInterval(4);
-		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
+	str += '<div class="classes">';
+	
 	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
@@ -211,13 +212,14 @@
 		
 	// we get Eq interval classification 5 classes
 	var a = serie4.getEqInterval(5);
-		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
+	str += '<div class="classes">';
 	var ranges = serie4.ranges;
+	
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 		
 	document.write('<h2>Sample 4 - classification : choose classes number <\/h2>');
@@ -233,32 +235,33 @@
 	// we get Eq interval classification
 	var a = serie5.getEqInterval(4);
 	var str  = '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
+	str += '<div class="classes">';
 	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Quantile classification
 	var a = serie5.getQuantile(4);
-		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
-		var ranges = serie5.ranges;
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie5.ranges;
+	
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Jenks classification
 	var a = serie5.getJenks(4);
-		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
 	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 		
 	document.write('<h2>Sample 5 - classification : choose classification method<\/h2>');
 	document.write('<h3>Equal Interval, Quantile, Jenks<\/h3>');
@@ -279,32 +282,33 @@
 	// we get Eq interval classification
 	serie6.getEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<div class="classes">';
+	var ranges1 = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Quantile classification
 	serie6.getQuantile(5);
-		str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Jenks classification
 	serie6.getJenks(4);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
+	
 		
 	document.write('<h2>Sample 6 - choose the right classification<\/h2>');
 	document.write('<p>' + nl2br(serie6.info()) + '<\/p>');
