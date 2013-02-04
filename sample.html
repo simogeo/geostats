@@ -93,14 +93,16 @@
 			// sample-8
 			// for openlayers representation
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
-   			// var color_x  = new Array('#ee5588', '#44ee11', '#668811', '#000000', '#3d2e4e');
+
    			serie7.setColors(color_x);
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
+   			serie7.legendSeparator = ' ⇔ ';
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here round values<\/em>) and feature count', true, callback_sample);
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend').html(content);
+   			
    			jQuery('#legend2').html(content_flare);
    			init(color_x, class_x);
    			
@@ -319,7 +321,7 @@
 	document.write('<div id="sample-7"><\/div>');
 	--></script>
 	<div id="sample-8">
-		<h2>Sample 8 - finally, a choropleth representation (with openlayers)</h2>
+		<h2>Sample 8 - a choropleth representation (with openlayers) with JSON input</h2>
 		<div id="method"></div>
 		<div id="map"></div>
 	</div>
