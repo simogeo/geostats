@@ -44,6 +44,9 @@ API
 - *pop();* : return the number of individuals
 - *mean();* : return the mean
 - *median();* : return the median
+- *variance();* : return the variance
+- *stddev();* : return the standard deviation
+- *cov();* : return the coefficient of variation
 - *setSerie();* : fill up the *serie* attribute
 - *setColors();* : fill up the *colors* attribute
 - *setRanges()* : fill up the *ranges* attribute (array of classes range)
