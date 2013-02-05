@@ -9,7 +9,7 @@ function getClass(val, a) {
     for(var i= 0; i < a.length; i++) {
 	    // all classification except uniqueValues
 		if(a[i].indexOf(separator) != -1) {
-			var item = a[i].split(/separator/);
+			var item = a[i].split(separator);
 			if(val <= parseFloat(item[1])) {return i;}
 		} else {
 			// uniqueValues classification
