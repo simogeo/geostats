@@ -1,19 +1,22 @@
-//get user defined class
+// get user defined class
 // if equals value
+// handle both numeric and string (unique values classification)
 function getClass(val, a) {
+	
+	var separator = ' - '
+	
 	// return 2;
-    for(var i= 0; i < a.length; i++)
-    {	
-        var item = a[i].split(/ - /);
-        if(val <= parseFloat(item[1])) {return i;}
-    }
-}
-
-function getClassUniqueValues(val, a) {
-	// return 2;
-    for(var i= 0; i < a.length; i++)
-    {	
-        if(val == a[i]) {return i;}
+    for(var i= 0; i < a.length; i++) {
+	    // all classification except uniqueValues
+		if(a[i].indexOf(separator) != -1) {
+			var item = a[i].split(/separator/);
+			if(val <= parseFloat(item[1])) {return i;}
+		} else {
+			// uniqueValues classification
+			if(val == a[i]) {
+				return i;
+			}
+		}
     }
 }
 
@@ -89,7 +92,7 @@ function initUniqueValues(color_x, class_x) {
     var context_x = {
         getColour: function(feature) {
     	color = color_x;
-    	return color[getClassUniqueValues(feature.attributes["value"], class_x)];
+    	return color[getClass(feature.attributes["value"], class_x)];
         }
     };    
 
