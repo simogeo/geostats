@@ -32,7 +32,7 @@
 	  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
-	  #map {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
+	  #map, #map2 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
 	  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
 	  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
 	  h3 {color:#555;font-size: .9em}
@@ -55,12 +55,17 @@
    	$(document).ready(function() {
    		$.getJSON('tests/test.json',function(data) {
    			var items = []; // will store values
+   			var uValues = []; // will store values
    			
    			// Don't forget to use firebug console to retrieve your data
    			// console.log(data.features);
    			
    			$.each(data.features, function(i,feature){
    				items.push(feature.properties.Pop_2006);
+   			});
+   			
+   			$.each(data.features, function(i,feature){
+   				uValues.push(feature.properties.value);
    			});
 
    			var dataJson = items;
@@ -105,6 +110,21 @@
    			
    			jQuery('#legend2').html(content_flare);
    			init(color_x, class_x);
+   			
+   			
+   		// sample-10
+			// for openlayers representation
+   			
+   			serieUV = new geostats(uValues);
+   			var colors  = new Array('#2BCE72', '#FFC414', '#E069BC', '#4D8CEA');
+   			serieUV.setColors(colors);
+   			// we get Jenks classification
+   			var values = serieUV.getUniqueValues();
+   			
+   			var legend = serieUV.getHtmlLegend(null, null, 1);
+   			
+   			jQuery('#legend3').html(legend);
+   			initUniqueValues(colors, values);
    			
    		});
    		
@@ -332,7 +352,12 @@
 	</div>
 	<div style="clear:both"></div>
 	<div id="sample-10">
-		<h2>Sample 10 - Reading shapefile and creating choropleth map from attribute data</h2>
+		<h2>Sample 10 - Handle unique values</h2>
+		<div id="map2"></div>
+		<div id="legend3"></div>
+	</div>
+	<div id="sample-11">
+		<h2>Sample 11 - Reading shapefile and creating choropleth map from attribute data</h2>
 		<div>Using geostats and <a href="http://github.com/wavded/js-shapefile-to-geojson">js-shapefile-to-geojson</a> (by <a href="https://github.com/wavded">Marc Harter</a>) to create thematic maps. <a href="./sample_shp.html">Access demo page.</a></div>
 	</div>
 	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license</div>
