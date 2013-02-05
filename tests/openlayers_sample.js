@@ -63,7 +63,7 @@ function init(color_x, class_x) {
     // Add map controls:
 	// http://dev.openlayers.org/docs/files/OpenLayers/Control-js.html
     map.addControl(new OpenLayers.Control.MousePosition());
-    map.addControl(new OpenLayers.Control.MouseDefaults());
+    map.addControl(new OpenLayers.Control.Navigation());
     map.addControl(new OpenLayers.Control.PanZoomBar());
     map.addControl(new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200, bottomOutUnits: "", bottomInUnits: ""}));
 
