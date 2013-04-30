@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+    <head>
+        <title>geostats - js-shapefile-to-geojson integration sample</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+   			<script type="text/javascript" src="lib/geostats.js"></script>
+   			<script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
+   			<link rel="stylesheet" href="lib/geostats.css" type="text/css" />
+			   <style type="text/css">
+				  <!--
+				  body {
+				    font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+				    color:#333;
+				    font-size: 0.8em;
+				    background-color: #F7F7F7;
+				  }
+				  #legend {display:inline-block;width:20%;margin:0 1em 2em 0;font-size:0.85em;vertical-align: top}
+				  .legend-block {
+					    border: 1px solid #555555;
+					    display: block;
+					    float: left;
+					    height: 12px;
+					    margin: 0.3em 0.8em 0 2em;
+					    width: 20px;
+					}
+				  .container {margin:0 auto;width:90%;}
+				  .serie strong {color:#333;}
+				  .serie {font-size: .9em;color:#555;}
+				  .classes {margin:0em 4em 2em;}
+				  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
+				  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
+				  a:hover {color:#514F51;}
+				  #map {width:76%;height:500px;border: 1px solid #ccc;background-color: #eee;display:inline-block;}
+				  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
+				  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
+				  h3 {color:#555;font-size: .9em}
+				  hr {
+						height: 1px;
+						margin: -0.5em 0;
+						padding: 0;
+						color: #ddd;
+						background-color: #ddd;
+						border: 0;
+				  }
+				  #footer {font-size:0.8em;text-align: center;color:#777;margin:2em 0 1em;padding:.3em}
+				  -->
+			  </style>
+    </head>
+    <body>
+    <div class="container" id="top">
+		<h1>geostats - <a href="http://github.com/wavded/js-shapefile-to-geojson"><em>js-shapefile-to-geojson</em></a> integration sample</h1>
+        <h2>Reading shapefile and creating choropleth map from attribute data</h2>
+        <div id="map"></div>
+        <script src="./tests/js-shapefile-to-geojson/stream.js"></script>
+        <script src="./tests/js-shapefile-to-geojson/shapefile.js"></script>
+        <script src="./tests/js-shapefile-to-geojson/dbf.js"></script>
+        <script type="text/javascript">
+        
+        					var host = "http://"+window.location.hostname;
+        					var am = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1);
+        
+									//get user defined class
+									// if equals value
+									function getClass(val, a) {
+										// return 2;
+										for ( var i = 0; i < a.length; i++) {
+											var item = a[i].split(/ - /);
+											if (val <= parseFloat(item[1])) {
+												return i;
+											}
+										}
+									}
+
+									var populationValues = []; // will store values
+
+									OpenLayers.ImgPath = "http://js.mapbox.com/theme/dark/";
+
+									var options = {
+											scales: [130000000, 65000000, 32500000, 17000000, 8500000, 4200000],
+									        controls: [
+														new OpenLayers.Control.PanZoomBar(),
+														new OpenLayers.Control.ScaleLine({geodesic: true, maxWidth: 200, bottomOutUnits: "", bottomInUnits: ""}),
+														new OpenLayers.Control.MousePosition(),
+														new OpenLayers.Control.Navigation()
+													],
+													numZoomLevels: 1
+									    };
+									
+									// Create a new map with options defined above
+								  map = new OpenLayers.Map( 'map', options );
+									
+									parser = new OpenLayers.Format.GeoJSON();
+
+									shapefile = new Shapefile(
+											{
+												shp : host + '/' + am + "tests/js-shapefile-to-geojson/testdata/world.shp",
+												dbf : host + '/' + am + "tests/js-shapefile-to-geojson/testdata/world.dbf"
+											},
+											function(data) {
+
+												var features = parser.read(data.geojson);
+												var origin = features;
+
+												// we get the desired attribute
+												for (i = 0; i < features.length; i++) {
+													populationValues.push(features[i].attributes.POP2005);
+												}
+
+												// geostats settings
+												serie = new geostats(populationValues);
+												serie.getQuantile(5);
+												var ranges = serie.ranges;
+												console.log(ranges.join(', '));
+
+												var colors =new Array('#FEF0D9', '#FDCC8A','#FC8D59', '#E34A33','#B30000')
+												serie.setColors(colors);
+												
+												var legend = serie.getHtmlLegend(null,'Population in 2005');
+
+												// openlayers settings
+
+												var context_x = {
+													getColour : function(feature) {
+														color = colors;
+														return color[getClass(feature.attributes["POP2005"],ranges)];
+													}
+												};
+
+												var template = {
+													fillOpacity : 0.9,
+													strokeColor : "#ffffff",
+													strokeWidth : 1,
+													fillColor : "${getColour}"
+												};
+
+												// Style
+												var style_x = new OpenLayers.Style(template, {
+															context : context_x
+														});
+												var styleMap_x = new OpenLayers.StyleMap(
+														{
+															'default' : style_x
+														});
+
+												var vector = new OpenLayers.Layer.Vector('Countries',
+														{
+															styleMap : styleMap_x,
+															isBaseLayer : true
+														});
+
+												vector.addFeatures(features);
+												map.addLayer(vector);
+
+												map.zoomToExtent(vector.getDataExtent());
+
+												// console.log(data);
+												// console.log(features);
+												$('#legend').html(legend);
+
+											})
+								</script>
+        <div id="legend"></div>
+        <div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license - <a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> | <a href="#top">Go to top</a></div>
+       </div>
+    </body>
+</html>
+

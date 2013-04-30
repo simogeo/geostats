@@ -4,7 +4,6 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
    <title>geostats.js (by simon georget)</title>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-   <script type="text/javascript" src="lib/jenks.util.js"></script>
    <script type="text/javascript" src="lib/geostats.js"></script>
    <script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
    <script type="text/javascript" src="tests/openlayers_sample.js"></script>
@@ -33,7 +32,7 @@
 	  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
-	  #map {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
+	  #map, #map2 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
 	  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
 	  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
 	  h3 {color:#555;font-size: .9em}
@@ -56,12 +55,17 @@
    	$(document).ready(function() {
    		$.getJSON('tests/test.json',function(data) {
    			var items = []; // will store values
+   			var uValues = []; // will store values
    			
    			// Don't forget to use firebug console to retrieve your data
    			// console.log(data.features);
    			
    			$.each(data.features, function(i,feature){
    				items.push(feature.properties.Pop_2006);
+   			});
+   			
+   			$.each(data.features, function(i,feature){
+   				uValues.push(feature.properties.value);
    			});
 
    			var dataJson = items;
@@ -94,16 +98,33 @@
 			// sample-8
 			// for openlayers representation
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
-   			// var color_x  = new Array('#ee5588', '#44ee11', '#668811', '#000000', '#3d2e4e');
+
    			serie7.setColors(color_x);
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
+   			serie7.legendSeparator = ' ⇔ ';
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here round values<\/em>) and feature count', true, callback_sample);
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend').html(content);
+   			
    			jQuery('#legend2').html(content_flare);
    			init(color_x, class_x);
+   			
+   			
+   		// sample-10
+			// for openlayers representation
+   			
+   			serieUV = new geostats(uValues);
+   			var colors  = new Array('#2BCE72', '#FFC414', '#E069BC', '#4D8CEA');
+   			serieUV.setColors(colors);
+   			// we get Jenks classification
+   			var values = serieUV.getUniqueValues();
+   			
+   			var legend = serieUV.getHtmlLegend(null, null, 1);
+   			
+   			jQuery('#legend3').html(legend);
+   			initUniqueValues(colors, values);
    			
    		});
    		
@@ -136,9 +157,9 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="top">
 	<h1>geostats - Javascript classification library <em>samples</em></h1>
-	<p class="projectinfo"><a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> - <a href="https://github.com/simogeo/geostats/archives/master" title="geostats download">download (from github)</a></p>
+	<p class="projectinfo"><a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> - <a href="https://github.com/simogeo/geostats/archive/master.zip" title="geostats download">download (from github)</a></p>
 	<script type="text/javascript"><!--
 	
 	// Samples datasets
@@ -193,6 +214,7 @@
 	var a = serie4.getEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
+	
 	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
@@ -201,8 +223,9 @@
 
 	// we get Eq interval classification 4 classes
 	var a = serie4.getEqInterval(4);
-		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
+	str += '<div class="classes">';
+	
 	var ranges = serie4.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
@@ -211,13 +234,14 @@
 		
 	// we get Eq interval classification 5 classes
 	var a = serie4.getEqInterval(5);
-		str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
+	str += '<div class="classes">';
 	var ranges = serie4.ranges;
+	
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 		
 	document.write('<h2>Sample 4 - classification : choose classes number <\/h2>');
@@ -233,32 +257,33 @@
 	// we get Eq interval classification
 	var a = serie5.getEqInterval(4);
 	var str  = '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
+	str += '<div class="classes">';
 	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Quantile classification
 	var a = serie5.getQuantile(4);
-		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
-		var ranges = serie5.ranges;
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie5.ranges;
+	
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Jenks classification
 	var a = serie5.getJenks(4);
-		str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
-		str += '<div class="classes">';
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
 	var ranges = serie5.ranges;
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 		
 	document.write('<h2>Sample 5 - classification : choose classification method<\/h2>');
 	document.write('<h3>Equal Interval, Quantile, Jenks<\/h3>');
@@ -279,32 +304,33 @@
 	// we get Eq interval classification
 	serie6.getEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<div class="classes">';
+	var ranges = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Quantile classification
 	serie6.getQuantile(5);
-		str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
 
 	// we get Jenks classification
 	serie6.getJenks(4);
-		str += '<strong>Classification Method : <\/strong>' + geostats.method + " :\n";
-		str += '<div class="classes">';
-	var ranges = serie6.getRanges(a);
+	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie6.getRanges();
 	for(i = 0; i < ranges.length ; i++) {
 		str += ranges[i] + "\n";
 	}
-		str += '<\/div>';
+	str += '<\/div>';
+	
 		
 	document.write('<h2>Sample 6 - choose the right classification<\/h2>');
 	document.write('<p>' + nl2br(serie6.info()) + '<\/p>');
@@ -315,7 +341,7 @@
 	document.write('<div id="sample-7"><\/div>');
 	--></script>
 	<div id="sample-8">
-		<h2>Sample 8 - finally, a choropleth representation (with openlayers)</h2>
+		<h2>Sample 8 - a choropleth representation (using openlayers) with JSON input</h2>
 		<div id="method"></div>
 		<div id="map"></div>
 	</div>
@@ -325,7 +351,16 @@
 		<div id="legend2"></div>
 	</div>
 	<div style="clear:both"></div>
-	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license</div>
+	<div id="sample-10">
+		<h2>Sample 10 - Handle unique values</h2>
+		<div id="map2"></div>
+		<div id="legend3"></div>
+	</div>
+	<div id="sample-11">
+		<h2>Sample 11 - Reading shapefile and creating choropleth map from attribute data</h2>
+		<div>Using geostats and <a href="http://github.com/wavded/js-shapefile-to-geojson">js-shapefile-to-geojson</a> (by <a href="https://github.com/wavded">Marc Harter</a>) to create thematic maps. <a href="./sample_shp.html">Access demo page.</a></div>
+	</div>
+	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license - <a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> | <a href="#top">Go to top</a></div>
 </div>
 </body>
 </html>
