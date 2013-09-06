@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit for geostats</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
+  <link rel="stylesheet" href="../lib/geostats.css">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+  <script src="../lib/geostats.js"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <script>
+  $(document).ready(function() {
+
+    module("geostats");
+  
+    // test for fixing getJenks bug
+    test("geostats: getJenks", function() {
+      var values = [30.3, 35.1, 54.4, 45.9, 40.3, 34.4, 45, 38.2]
+        , classifier = new geostats(values)
+        , jenksResult = classifier.getJenks(5);
+
+      console.log(jenksResult);
+      $.each(jenksResult, function(index, value) { 
+        notEqual(typeof value, 'undefined'); 
+      });
+    });
+    
+ // second test for fixing getJenks bug
+    test("geostats: getJenks", function() {
+      var values = [12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36, 4, 9, 35, 12, 42, 43, 56, 12, 23, 
+    				43, 19, 11, -1, 51, -6, 34, 33,41, 45, 23, -3, 3, 54, 1, 18, 44, 41,28, 16, 19, 
+    				35, 44, 21, 23, -3, 5, 64, 15, 17, 7, 93, 6, 16, 47, 13, 46, 53, 10, 30, 31, 32, 
+    				58, 28, 32, 46,53, 31, 2, 36, 41, 23, 3, 8, 15, 54, 35, 79, 15, 83, 6,-9, 78, 74, 
+    				56, 78, 45, 62, 19, 70, 23, 51, 73, 67, 78, 34, 52, 61, 60, 11, 26, 48, 15, 2]
+
+        , classifier = new geostats(values)
+        , jenksResult = classifier.getJenks(4);
+
+      console.log(jenksResult);
+      $.each(jenksResult, function(index, value) { 
+        notEqual(typeof value, 'undefined'); 
+      });
+    });
+    
+    
+
+  });
+  </script>
+</body>
+</html>
