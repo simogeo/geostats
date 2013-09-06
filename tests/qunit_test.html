@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit for geostats</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
+  <link rel="stylesheet" href="../lib/geostats.css">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+  <script src="../lib/jenks.util.js"></script>
+  <script src="../lib/geostats.js"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <script>
+  $(document).ready(function() {
+
+    module("geostats");
+  
+    // test for fixing getJenks bug
+    test("geostats: getJenks", function() {
+      var values = [30.3, 35.1, 54.4, 45.9, 40.3, 34.4, 45, 38.2]
+        , classifier = new geostats(values)
+        , jenksResult = classifier.getJenks(5);
+
+      console.log(jenksResult);
+      // [30.3, 35.1, 40.3, 54.4, undefined, 54.4]
+      $.each(jenksResult, function(index, value) { 
+        notEqual(typeof value, 'undefined'); 
+      });
+    });
+
+  });
+  </script>
+</body>
+</html>
