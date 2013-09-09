@@ -50,6 +50,7 @@ API
 - *cov();* : return the coefficient of variation
 - *setSerie();* : fill up the *serie* attribute
 - *setColors();* : fill up the *colors* attribute
+- *setPrecision();* : set precision on serie - only usefull for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by geostats.
 - *setRanges()* : fill up the *ranges* attribute (array of classes range)
 - *_nodata();* : check if *serie* attribute if not empty
 - *sorted();* : return the sorted (asc) serie
@@ -60,7 +61,7 @@ API
 - *getUniqueValues();* : Do a unique values classification and return bounds (values) into an array
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
-- *getHtmlLegend(colors, legend, callback);* : return a legend in html format
+- *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L681) to know how about option.
 - *getSortedlist();* : return the sorted serie in text format
 - *getClass();* : return a given value class
 - *doCount();* : perform count feature by classes, used to display count feature in legend
