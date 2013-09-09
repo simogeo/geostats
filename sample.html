@@ -4,7 +4,7 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
    <title>geostats.js (by simon georget)</title>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-   <script type="text/javascript" src="lib/geostats.js"></script>
+   <script type="text/javascript" src="lib/geostats.wip.js"></script>
    <script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
    <script type="text/javascript" src="tests/openlayers_sample.js"></script>
    <link rel="stylesheet" href="lib/geostats.css" type="text/css" />
@@ -49,7 +49,7 @@
   </style>
    <script type="text/javascript">
    var callback_sample = function(c) {
-		return Math.round(c);
+		return '<strong>' + c + '</strong>';
 	};
 	
    	$(document).ready(function() {
@@ -73,7 +73,7 @@
    			
    			// Seventh serie
    			serie7 = new geostats(dataJson);
-
+   			serie7.setPrecision(6);
    			// we get Eq interval classification
    			var a = serie7.getQuantile(5);
    			//var a = serie7.getEqInterval(5);
@@ -100,10 +100,13 @@
    			var color_x  = new Array('#e2dee6', '#c2abdd', '#9d87b6', '#735a8f', '#3d2e4e');
 
    			serie7.setColors(color_x);
+   			
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
+
    			serie7.legendSeparator = ' ⇔ ';
-   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here round values<\/em>) and feature count', true, callback_sample);
+   			serie7.setPrecision(2);
+   			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here, values wrapped by strong tags<\/em>) and feature count', true, callback_sample, 'distinct');
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend').html(content);
