@@ -4,7 +4,7 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
    <title>geostats.js (by simon georget)</title>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-   <script type="text/javascript" src="lib/geostats.wip.js"></script>
+   <script type="text/javascript" src="lib/geostats.js"></script>
    <script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
    <script type="text/javascript" src="tests/openlayers_sample.js"></script>
    <link rel="stylesheet" href="lib/geostats.css" type="text/css" />
@@ -16,7 +16,7 @@
 	    font-size: 0.8em;
 	    background-color: #F7F7F7;
 	  }
-	  #legend, #legend2 {float:left;width:45%;margin:0 1em 2em 0;}
+	  #legend, #legend2, #legend3 {float:left;width:47%;margin:0 1em 2em 0;}
 	  .legend-block {
 		    border: 1px solid #555555;
 		    display: block;
@@ -30,6 +30,7 @@
 	  .serie {font-size: .9em;color:#555;}
 	  .classes {margin:0em 4em 2em;}
 	  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
+	  .legend p { height: 50px;color:#555;font-variant: small-caps;text-align: justify;border-bottom:1px dotted #ccc}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
 	  #map, #map2 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
@@ -74,6 +75,7 @@
    			// Seventh serie
    			serie7 = new geostats(dataJson);
    			serie7.setPrecision(6);
+   			
    			// we get Eq interval classification
    			var a = serie7.getQuantile(5);
    			//var a = serie7.getEqInterval(5);
@@ -108,10 +110,13 @@
    			serie7.setPrecision(2);
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here, values wrapped by strong tags<\/em>) and feature count', true, callback_sample, 'distinct');
 
+   			var content_legend3 = serie7.getHtmlLegend(null, 'Legend (real values, breaking continuous serie)', true, null, 'real');
+
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
-   			jQuery('#legend').html(content);
+   			jQuery('#legend p').after(content);
    			
-   			jQuery('#legend2').html(content_flare);
+   			jQuery('#legend2 p').after(content_flare);
+   			jQuery('#legend3 p').after(content_legend3);
    			init(color_x, class_x);
    			
    			
@@ -126,7 +131,7 @@
    			
    			var legend = serieUV.getHtmlLegend(null, null, 1);
    			
-   			jQuery('#legend3').html(legend);
+   			jQuery('#legend4').html(legend);
    			initUniqueValues(colors, values);
    			
    		});
@@ -349,15 +354,22 @@
 		<div id="map"></div>
 	</div>
 	<div id="sample-9">
-		<h2>Sample 9 - dynamic HTML legend with user input, feature count and callback function</h2>
-		<div id="legend"></div>
-		<div id="legend2"></div>
+		<h2>Sample 9 - dynamic HTML legend with user input, feature count, callback function and display mode option</h2>
+		<div id="legend" class="legend">
+			<p>Call to legend method with default options</p>
+		</div>
+		<div id="legend2" class="legend">
+			<p>Call to legend method with options : customized text, callback function and 'distinct' mode. Decimal precision has been set to 2.</p>
+		</div>
+		<div id="legend3" class="legend">
+			<p>Call to legend method with options : 'real' mode.</p>
+		</div>
 	</div>
 	<div style="clear:both"></div>
 	<div id="sample-10">
 		<h2>Sample 10 - Handle unique values</h2>
 		<div id="map2"></div>
-		<div id="legend3"></div>
+		<div id="legend4"></div>
 	</div>
 	<div id="sample-11">
 		<h2>Sample 11 - Reading shapefile and creating choropleth map from attribute data</h2>
