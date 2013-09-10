@@ -61,7 +61,7 @@ API
 - *getUniqueValues();* : Do a unique values classification and return bounds (values) into an array
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
-- *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L681) to know how about option.
+- *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
 - *getSortedlist();* : return the sorted serie in text format
 - *getClass();* : return a given value class
 - *doCount();* : perform count feature by classes, used to display count feature in legend
