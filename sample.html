@@ -16,7 +16,7 @@
 	    font-size: 0.8em;
 	    background-color: #F7F7F7;
 	  }
-	  #legend, #legend2, #legend3 {float:left;width:47%;margin:0 1em 2em 0;}
+	  #legend, #legend2, #legend3 {float:left;width:28%;margin:0 2em 2em 2em;}
 	  .legend-block {
 		    border: 1px solid #555555;
 		    display: block;
@@ -30,7 +30,7 @@
 	  .serie {font-size: .9em;color:#555;}
 	  .classes {margin:0em 4em 2em;}
 	  .projectinfo {width:100%;text-align: center;margin:-3em 0 3em;}
-	  .legend p { height: 50px;color:#555;font-variant: small-caps;text-align: justify;border-bottom:1px dotted #ccc}
+	  .legend p { height: 70px;color:#555;font-variant: small-caps;text-align: justify;border-top:1px dotted #ccc}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
 	  #map, #map2 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
@@ -110,13 +110,13 @@
    			serie7.setPrecision(2);
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here, values wrapped by strong tags<\/em>) and feature count', true, callback_sample, 'distinct');
 
-   			var content_legend3 = serie7.getHtmlLegend(null, 'Legend (real values, breaking continuous serie)', true, null, 'real');
+   			var content_legend3 = serie7.getHtmlLegend(null, 'Legend (real values, breaking continuous serie)', true, null, 'discontinuous');
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
-   			jQuery('#legend p').after(content);
+   			jQuery('#legend p').before(content);
    			
-   			jQuery('#legend2 p').after(content_flare);
-   			jQuery('#legend3 p').after(content_legend3);
+   			jQuery('#legend2 p').before(content_flare);
+   			jQuery('#legend3 p').before(content_legend3);
    			init(color_x, class_x);
    			
    			
@@ -362,7 +362,7 @@
 			<p>Call to legend method with options : customized text, callback function and 'distinct' mode. Decimal precision has been set to 2.</p>
 		</div>
 		<div id="legend3" class="legend">
-			<p>Call to legend method with options : 'real' mode.</p>
+			<p>Call to legend method with options : 'discontinuous' mode.</p>
 		</div>
 	</div>
 	<div style="clear:both"></div>
