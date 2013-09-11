@@ -66,6 +66,9 @@ API
 - *getClass();* : return a given value class
 - *doCount();* : perform count feature by classes, used to display count feature in legend
  
+
+*Note : If you are looking for a nice JS library to format numbers for displaying, just rely on [numeraljs](http://numeraljs.com/).*
+
  
 MIT LICENSE
 ========================
