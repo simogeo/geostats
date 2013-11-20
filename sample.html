@@ -6,6 +6,7 @@
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
    <script type="text/javascript" src="lib/geostats.js"></script>
    <script type="text/javascript" src="http://openlayers.org/api/2.11/OpenLayers.js"></script>
+   <script type="text/javascript" src="https://raw.github.com/gka/chroma.js/master/chroma.min.js"></script>
    <script type="text/javascript" src="tests/openlayers_sample.js"></script>
    <link rel="stylesheet" href="lib/geostats.css" type="text/css" />
    <style type="text/css">
@@ -16,7 +17,8 @@
 	    font-size: 0.8em;
 	    background-color: #F7F7F7;
 	  }
-	  #legend, #legend2, #legend3 {float:left;width:28%;margin:0 2em 2em 2em;}
+	  #legend, #legend2, #legend3{float:left;width:28%;margin:0 2em 2em 2em;}
+
 	  .legend-block {
 		    border: 1px solid #555555;
 		    display: block;
@@ -33,7 +35,7 @@
 	  .legend p { height: 70px;color:#555;font-variant: small-caps;text-align: justify;border-top:1px dotted #ccc}
 	  a {color:#F47FE7;font-weight: bold;text-shadow: #fff 2px 2px 0px;text-decoration: none;}
 	  a:hover {color:#514F51;}
-	  #map, #map2 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
+	  #map, #map2, #map3 {width:100%;height:500px;border: 1px solid #ccc;background-color: #eee}
 	  h1 {color:#B5B1B1;text-shadow: #fff 2px 2px 0px;text-align: center;margin:2em 0;}
 	  h2 {color:#A2A3F2;text-shadow: #fff 2px 2px 0px;margin:2em 0 1em 0;}
 	  h3 {color:#555;font-size: .9em}
@@ -44,6 +46,12 @@
 			color: #ddd;
 			background-color: #ddd;
 			border: 0;
+	  }
+	  pre {
+	  	-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			background-color: #D3E5FF;
 	  }
 	  #footer {font-size:0.8em;text-align: center;color:#777;margin:2em 0 1em;padding:.3em}
 	  -->
@@ -105,7 +113,6 @@
    			
    			var class_x = ranges;
    			var content = serie7.getHtmlLegend();
-
    			serie7.legendSeparator = ' ⇔ ';
    			serie7.setPrecision(2);
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here, values wrapped by strong tags<\/em>) and feature count', true, callback_sample, 'distinct');
@@ -120,19 +127,32 @@
    			init(color_x, class_x);
    			
    			
-   		// sample-10
+			// sample-10
 			// for openlayers representation
    			
    			serieUV = new geostats(uValues);
    			var colors  = new Array('#2BCE72', '#FFC414', '#E069BC', '#4D8CEA');
    			serieUV.setColors(colors);
-   			// we get Jenks classification
+   			// we get Unique classification
    			var values = serieUV.getUniqueValues();
    			
    			var legend = serieUV.getHtmlLegend(null, null, 1);
    			
    			jQuery('#legend4').html(legend);
    			initUniqueValues(colors, values);
+
+   		
+   		// sample-11
+			// for openlayers representation
+	
+   			var color_x = chroma.scale('RdYlGn').domain([serie7.min(),serie7.max()], 5).colors()
+   			console.log(color_x);
+				serie7.setColors(color_x);
+
+				
+				var legend = serie7.getHtmlLegend(null, null, 1);
+				jQuery('#legend5').html(legend);
+				initChromaSample(color_x, class_x);
    			
    		});
    		
@@ -372,10 +392,32 @@
 		<div id="legend4"></div>
 	</div>
 	<div id="sample-11">
-		<h2>Sample 11 - Reading shapefile and creating choropleth map from attribute data</h2>
+		<h2>Sample 11 -  a choropleth representation (using openlayers) with JSON input and <a href="https://github.com/gka/chroma.js">Chroma.js</a></h2>
+		<div id="chroma-code">
+			<pre>
+			<code>
+				// getting the color ramp from chroma by passing min, max values and number of classes
+				var color_x = chroma.scale('RdYlGn').domain([serie7.min(),serie7.max()], 5).colors();
+				
+				// setting colors into geostats
+				serie7.setColors(color_x);
+				
+				// rendering the html legend with geostats
+				jQuery('#legend5').html(serie7.getHtmlLegend(null, null, 1));
+				
+				// displaying map with openlayers
+				initChromaSample(color_x, class_x);
+			</code></pre>
+		</div>
+		<div id="map3"></div>
+		<div id="legend5"></div>
+	</div>
+	<div id="sample-12">
+		<h2>Sample 12 - Reading shapefile and creating choropleth map from attribute data</h2>
 		<div>Using geostats and <a href="http://github.com/wavded/js-shapefile-to-geojson">js-shapefile-to-geojson</a> (by <a href="https://github.com/wavded">Marc Harter</a>) to create thematic maps. <a href="./sample_shp.html">Access demo page.</a></div>
 	</div>
-	<div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license - <a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> | <a href="#top">Go to top</a></div>
+	
+  <div id="footer"><em>geostats.js</em> - Copyright (c) 2011 Simon Georget - released under MIT license - <a href="https://github.com/simogeo/geostats" title="geostats Github page">Github page</a> | <a href="#top">Go to top</a></div>
 </div>
 </body>
 </html>
