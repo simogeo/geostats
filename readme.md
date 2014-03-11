@@ -11,6 +11,7 @@ It currently supports
 
 - equal intervals
 - quantiles
+- arithmetic progression
 - jenks (natural breaks)
 - uniques values
 
