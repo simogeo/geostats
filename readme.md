@@ -56,6 +56,7 @@ API
 - *sorted();* : return the sorted (asc) serie
 - *info();* : return information about the population in text format
 - *getEqInterval(nbClass);* : Do an equal interval classification and return bounds into an array
+- *getArithmeticProgression(nbClass);* : Do an arithmetic progression classification and return bounds into an array
 - *getQuantile(nbClass);* : Do a quantile classification and return bounds into an array
 - *getJenks(nbClass);* : Do a Jenks classification and return bounds into an array
 - *getUniqueValues();* : Do a unique values classification and return bounds (values) into an array
