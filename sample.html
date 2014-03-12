@@ -303,7 +303,18 @@
 	}
 	str += '<\/div>';
 	
-	// we get Quantile classification
+	// we get Std Deviation classification
+	var a = serie5.getStdDeviation(4);
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie5.ranges;
+	
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+	str += '<\/div>';
+	
+	// we get Arithmetic Progression classification
 	var a = serie5.getArithmeticProgression(4);
 	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
@@ -325,11 +336,12 @@
 	str += '<\/div>';
 		
 	document.write('<h2>Sample 5 - classification : choose classification method<\/h2>');
-	document.write('<h3>Equal Interval, Quantile, Arithmetic Progression, Jenks<\/h3>');
-	document.write('<div>4 methods: <\/div>');
+	document.write('<h3>Equal Interval, Quantile, Standard Deviation, Arithmetic Progression, Jenks<\/h3>');
+	document.write('<div>5 methods: <\/div>');
 	document.write('<ul>');
 	document.write('<li><em>geostats.getEqInterval(nbClass);<\/em><\/<li>');
 	document.write('<li><em>geostats.getQuantile(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getStdDeviation(nbClass);<\/em><\/<li>');
 	document.write('<li><em>geostats.getArithmeticProgression(nbClass);<\/em><\/<li>');
 	document.write('<li><em>geostats.getJenks(nbClass);<\/em><\/<li>');
 	document.write('<\/ul>');

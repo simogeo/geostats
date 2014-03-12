@@ -11,6 +11,7 @@ It currently supports
 
 - equal intervals
 - quantiles
+- standard deviation
 - arithmetic progression
 - jenks (natural breaks)
 - uniques values
@@ -56,11 +57,12 @@ API
 - *_nodata();* : check if *serie* attribute if not empty
 - *sorted();* : return the sorted (asc) serie
 - *info();* : return information about the population in text format
-- *getEqInterval(nbClass);* : Do an equal interval classification and return bounds into an array
-- *getArithmeticProgression(nbClass);* : Do an arithmetic progression classification and return bounds into an array
-- *getQuantile(nbClass);* : Do a quantile classification and return bounds into an array
-- *getJenks(nbClass);* : Do a Jenks classification and return bounds into an array
-- *getUniqueValues();* : Do a unique values classification and return bounds (values) into an array
+- *getEqInterval(nbClass);* : Perform an equal interval classification and return bounds into an array
+- *getStdDeviation(nbClass);* : Perform a standard deviation classification and return bounds into an array
+- *getArithmeticProgression(nbClass);* : Perform an arithmetic progression classification and return bounds into an array
+- *getQuantile(nbClass);* : Perform a quantile classification and return bounds into an array
+- *getJenks(nbClass);* : Perform a Jenks classification and return bounds into an array
+- *getUniqueValues();* : Perform a unique values classification and return bounds (values) into an array
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
 - *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
