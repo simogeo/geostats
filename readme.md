@@ -29,7 +29,8 @@ To use it, just download the geostats package and include the following line int
 API
 ========================
 
-**Attributes :**
+Attributes :
+--------------
 
 - *serie* : contains the statistic population. Default : empty.
 - *separator* : used to separate ranges values, by default : ' - '
@@ -38,8 +39,13 @@ API
 - *bounds* : classification bounds
 - *ranges* : classification ranges
 - *colors* : classification colors
-   
-**Methods :**
+
+
+Methods :
+---------
+
+
+**Statistics**
 
 - *min();* : return the min value
 - *max();* : return the max value
@@ -50,26 +56,42 @@ API
 - *variance();* : return the variance
 - *stddev();* : return the standard deviation
 - *cov();* : return the coefficient of variation
-- *setSerie();* : fill up the *serie* attribute
-- *setColors();* : fill up the *colors* attribute
-- *setPrecision();* : set precision on serie - only usefull for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by geostats.
-- *setRanges()* : fill up the *ranges* attribute (array of classes range)
-- *_nodata();* : check if *serie* attribute if not empty
-- *sorted();* : return the sorted (asc) serie
-- *info();* : return information about the population in text format
+
+
+**Classification**
+
 - *getEqInterval(nbClass);* : Perform an equal interval classification and return bounds into an array
 - *getStdDeviation(nbClass);* : Perform a standard deviation classification and return bounds into an array
 - *getArithmeticProgression(nbClass);* : Perform an arithmetic progression classification and return bounds into an array
 - *getQuantile(nbClass);* : Perform a quantile classification and return bounds into an array
 - *getJenks(nbClass);* : Perform a Jenks classification and return bounds into an array
 - *getUniqueValues();* : Perform a unique values classification and return bounds (values) into an array
+
+
+**Constructor methods**
+
+- *setSerie();* : fill up the *serie* attribute
+- *setColors();* : fill up the *colors* attribute
+- *setPrecision();* : set precision on serie - only useful for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by *geostats*.
+
+
+**Getters methods**
+
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
 - *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
 - *getSortedlist();* : return the sorted serie in text format
 - *getClass();* : return a given value class
+
+
+**Internals methods**
+
+- *_nodata();* : check if *serie* attribute if not empty
+- *sorted();* : return the sorted (asc) serie
+- *info();* : return information about the population in text format
+- *setRanges()* : fill up the *ranges* attribute (array of classes range)
 - *doCount();* : perform count feature by classes, used to display count feature in legend
- 
+
 
 *Note : If you are looking for a nice JS library to format numbers for displaying, just rely on [numeraljs](http://numeraljs.com/).*
 
