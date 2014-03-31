@@ -45,7 +45,7 @@ Methods :
 ---------
 
 
-**Statistics**
+**Statistics :**
 
 - *min();* : return the min value
 - *max();* : return the max value
@@ -58,7 +58,7 @@ Methods :
 - *cov();* : return the coefficient of variation
 
 
-**Classification**
+**Classification :**
 
 - *getEqInterval(nbClass);* : Perform an equal interval classification and return bounds into an array
 - *getStdDeviation(nbClass);* : Perform a standard deviation classification and return bounds into an array
@@ -68,14 +68,14 @@ Methods :
 - *getUniqueValues();* : Perform a unique values classification and return bounds (values) into an array
 
 
-**Constructor methods**
+**Constructor methods :**
 
 - *setSerie();* : fill up the *serie* attribute
 - *setColors();* : fill up the *colors* attribute
 - *setPrecision();* : set precision on serie - only useful for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by *geostats*.
 
 
-**Getters methods**
+**Getters methods :**
 
 - *getRanges(array);* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
@@ -84,7 +84,7 @@ Methods :
 - *getClass();* : return a given value class
 
 
-**Internals methods**
+**Internals methods :**
 
 - *_nodata();* : check if *serie* attribute if not empty
 - *sorted();* : return the sorted (asc) serie
