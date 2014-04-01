@@ -1,0 +1,26 @@
+{
+  "author": "Simon Georget <simon@empreinte-urbaine.eu>",
+  "name": "geostats",
+  "description": "A tiny and standalone javascript library for classification and basic statistics",
+  "version": "1.0.0",
+  "keywords": [
+    "mapping",
+    "classification",
+    "choropleth",
+    "map",
+    "stats",
+    "statistics",
+    "math"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/simogeo/geostats.git"
+  },
+  "main": "./lib/geostats.min.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "license": "MIT"
+}
