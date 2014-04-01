@@ -1,0 +1,12 @@
+{
+  "name": "geostats",
+  "repo": "simogeo/geostats",
+  "description": "a tiny and standalone javascript library for classification and basic statistics",
+  "version": "0.4.0",
+  "keywords": ["mapping", "map", "classification", "choropleth", "stats", "statistics", "math"],
+  "dependencies": {},
+  "development": {},
+  "main": [
+    "lib/geostats.min.js"
+  ]
+}
