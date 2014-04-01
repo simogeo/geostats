@@ -21,7 +21,7 @@ and **few statistical methods**
 To use it, just download the geostats package and include the following line into your html page :
 
 ```html
-   <script type="text/javascript" src="path/to/lib/geostats.js"></script>
+   <script type="text/javascript" src="path/to/lib/geostats/min.js"></script>
 ```
 
 **Please see the samples page to understand how it works!**
