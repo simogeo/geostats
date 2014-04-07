@@ -13,8 +13,10 @@ It currently supports
 - quantiles
 - standard deviation
 - arithmetic progression
+- geometric progression
 - jenks (natural breaks)
 - uniques values
+- user defined classification
 
 and **few statistical methods**
 
@@ -47,50 +49,55 @@ Methods :
 
 **Statistics :**
 
-- *min();* : return the min value
-- *max();* : return the max value
-- *sum();* : return the sum of the population
-- *pop();* : return the number of individuals
-- *mean();* : return the mean
-- *median();* : return the median
-- *variance();* : return the variance
-- *stddev();* : return the standard deviation
-- *cov();* : return the coefficient of variation
+- *min()* : return the min value
+- *max()* : return the max value
+- *sum()* : return the sum of the population
+- *pop()* : return the number of individuals
+- *mean()* : return the mean
+- *median()* : return the median
+- *variance()* : return the variance
+- *stddev()* : return the standard deviation
+- *cov()* : return the coefficient of variation
 
 
 **Classification :**
 
-- *getEqInterval(nbClass);* : Perform an equal interval classification and return bounds into an array
-- *getStdDeviation(nbClass);* : Perform a standard deviation classification and return bounds into an array
-- *getArithmeticProgression(nbClass);* : Perform an arithmetic progression classification and return bounds into an array
-- *getQuantile(nbClass);* : Perform a quantile classification and return bounds into an array
-- *getJenks(nbClass);* : Perform a Jenks classification and return bounds into an array
-- *getUniqueValues();* : Perform a unique values classification and return bounds (values) into an array
+- *getClassEqInterval(nbClass)* : Perform an equal interval classification and return bounds into an array. Alias : *getEqInterval(nbClass)*
+- *getClassStdDeviation(nbClass)* : Perform a standard deviation classification and return bounds into an array. Alias : *getStdDeviation(nbClass)*
+- *getClassArithmeticProgression(nbClass)* : Perform an arithmetic progression classification and return bounds into an array. Alias : *getArithmeticProgression(nbClass)*
+- *getClassGeometricProgression(nbClass)* : Perform a geometric progression classification and return bounds into an array. Alias : *getGeometricProgression(nbClass)*
+- *getClassQuantile(nbClass)* : Perform a quantile classification and return bounds into an array. Alias : *getQuantile(nbClass)*
+- *getClassJenks(nbClass)* : Perform a Jenks classification and return bounds into an array. Alias : *getJenks(nbClass)*
+- *getClassUniqueValues()* : Perform a unique values classification and return bounds (values) into an array. Alias : *getUniqueValues()*
+- *setClassManually()* : Set a user defined classification based on passed array (Same array is returned). Useful to automatically set bounds/ranges and generate legend.
+
 
 
 **Constructor methods :**
 
-- *setSerie();* : fill up the *serie* attribute
-- *setColors();* : fill up the *colors* attribute
-- *setPrecision();* : set precision on serie - only useful for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by *geostats*.
+- *setSerie()* : fill up the *serie* attribute
+- *setColors()* : fill up the *colors* attribute
+- *setPrecision()* : set precision on serie - only useful for float series. Can take no value (for automatic precision), or an integer between 0-20. By default, the precision will be computed automatically by *geostats*.
 
 
 **Getters methods :**
 
-- *getRanges(array);* : return an array of classes range (*ranges* value)
+- *getRanges(array)* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
-- *getHtmlLegend(colors, legend, callback, mode);* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
-- *getSortedlist();* : return the sorted serie in text format
-- *getClass();* : return a given value class
+- *getHtmlLegend(colors, legend, callback, mode)* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
+- *getSortedlist()* : return the sorted serie in text format
+- *getClass()* : return a given value class
 
 
 **Internals methods :**
 
-- *_nodata();* : check if *serie* attribute if not empty
-- *sorted();* : return the sorted (asc) serie
-- *info();* : return information about the population in text format
+- *_nodata()* : check if *serie* attribute if not empty
+- *_hasNegativeValue()* : check if the serie contains any negative values
+- *_hasZeroValue()* : check if the serie contains zero values
+- *sorted()* : return the sorted (asc) serie
+- *info()* : return information about the population in text format
 - *setRanges()* : fill up the *ranges* attribute (array of classes range)
-- *doCount();* : perform count feature by classes, used to display count feature in legend
+- *doCount()* : perform count feature by classes, used to display count feature in legend
 
 
 *Note : If you are looking for a nice JS library to format numbers for displaying, just rely on [numeraljs](http://numeraljs.com/).*

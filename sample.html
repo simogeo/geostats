@@ -85,9 +85,9 @@
    			serie7.setPrecision(6);
    			
    			// we get Eq interval classification
-   			var a = serie7.getQuantile(5);
-   			//var a = serie7.getEqInterval(5);
-   			//var a = serie7.getJenks(3);
+   			var a = serie7.getClassQuantile(5);
+   			//var a = serie7.getClassEqInterval(5);
+   			//var a = serie7.getClassJenks(3);
    			var str  = '<strong>Classification Method : <\/strong>' + serie7.method + " :\n";
    				str += '<div class="classes">';
    			var ranges = serie7.ranges;
@@ -134,7 +134,7 @@
    			var colors  = new Array('#2BCE72', '#FFC414', '#E069BC', '#4D8CEA');
    			serieUV.setColors(colors);
    			// we get Unique classification
-   			var values = serieUV.getUniqueValues();
+   			var values = serieUV.getClassUniqueValues();
    			
    			var legend = serieUV.getHtmlLegend(null, null, 1);
    			
@@ -200,7 +200,7 @@
 	// test integer - 10 values
 	var a4 = Array(12, 22, 5, 8, 43, 2, 34, 12, 34, 36);
 	// test float
-	var a5 = Array(0, 1.2, 3, 2.5, 1.6, 2.2, 3.1, 2.8, 1.1, 2.7, 7.1);
+	var a5 = Array(0.1, 1.2, 3, 2.5, 1.6, 2.2, 3.1, 2.8, 1.1, 2.7, 7.1);
 	// test integer - 11 values
 	//var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36);
 	var a6 = Array(12, 22, 18, 5, 8, 43, 2, 34, 12, 34, 36, 4, 9, 35, 12, 42, 43, 56, 12, 23, 
@@ -239,7 +239,7 @@
 	serie4 = new geostats(a4);
 
 	// we get Eq interval classification 3 classes
-	var a = serie4.getEqInterval(3);
+	var a = serie4.getClassEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 		str += '<div class="classes">';
 	
@@ -250,7 +250,7 @@
 		str += '<\/div>';
 
 	// we get Eq interval classification 4 classes
-	var a = serie4.getEqInterval(4);
+	var a = serie4.getClassEqInterval(4);
 	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 	str += '<div class="classes">';
 	
@@ -261,7 +261,7 @@
 		str += '<\/div>';
 		
 	// we get Eq interval classification 5 classes
-	var a = serie4.getEqInterval(5);
+	var a = serie4.getClassEqInterval(5);
 	str += '<strong>Classification Method : <\/strong>' + serie4.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie4.ranges;
@@ -283,7 +283,7 @@
 	serie5.setSerie(a5);
 
 	// we get Eq interval classification
-	var a = serie5.getEqInterval(4);
+	var a = serie5.getClassEqInterval(4);
 	var str  = '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie5.ranges;
@@ -293,7 +293,7 @@
 	str += '<\/div>';
 
 	// we get Quantile classification
-	var a = serie5.getQuantile(4);
+	var a = serie5.getClassQuantile(4);
 	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie5.ranges;
@@ -304,7 +304,7 @@
 	str += '<\/div>';
 	
 	// we get Std Deviation classification
-	var a = serie5.getStdDeviation(4);
+	var a = serie5.getClassStdDeviation(4);
 	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie5.ranges;
@@ -315,7 +315,18 @@
 	str += '<\/div>';
 	
 	// we get Arithmetic Progression classification
-	var a = serie5.getArithmeticProgression(4);
+	var a = serie5.getClassArithmeticProgression(4);
+	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
+	str += '<div class="classes">';
+	var ranges = serie5.ranges;
+	
+	for(i = 0; i < ranges.length ; i++) {
+		str += ranges[i] + "\n";
+	}
+	str += '<\/div>';
+	
+	// we get Arithmetic Progression classification
+	var a = serie5.getClassGeometricProgression(4);
 	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie5.ranges;
@@ -326,7 +337,7 @@
 	str += '<\/div>';
 
 	// we get Jenks classification
-	var a = serie5.getJenks(4);
+	var a = serie5.getClassJenks(4);
 	str += '<strong>Classification Method : <\/strong>' + serie5.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie5.ranges;
@@ -336,15 +347,17 @@
 	str += '<\/div>';
 		
 	document.write('<h2>Sample 5 - classification : choose classification method<\/h2>');
-	document.write('<h3>Equal Interval, Quantile, Standard Deviation, Arithmetic Progression, Jenks<\/h3>');
-	document.write('<div>5 methods: <\/div>');
+	document.write('<h3>Equal Interval, Quantile, Standard Deviation, Arithmetic Progression, Geometric Progression, Jenks<\/h3>');
+	document.write('<div>6 methods: <\/div>');
 	document.write('<ul>');
-	document.write('<li><em>geostats.getEqInterval(nbClass);<\/em><\/<li>');
-	document.write('<li><em>geostats.getQuantile(nbClass);<\/em><\/<li>');
-	document.write('<li><em>geostats.getStdDeviation(nbClass);<\/em><\/<li>');
-	document.write('<li><em>geostats.getArithmeticProgression(nbClass);<\/em><\/<li>');
-	document.write('<li><em>geostats.getJenks(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassEqInterval(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassQuantile(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassStdDeviation(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassArithmeticProgression(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassGeometricProgression(nbClass);<\/em><\/<li>');
+	document.write('<li><em>geostats.getClassJenks(nbClass);<\/em><\/<li>');
 	document.write('<\/ul>');
+	document.write('<p>You can even use <em>geostats.setClassManually([0, 1.5, 2.2, 3.5, 7.1]);<\/em> method to classify manually your data. It will then be easy to render the legend.<\/p>');
 	document.write('<p>' + nl2br(serie5.info()) + '<\/p>');
 	document.write('<p>' + nl2br(str) + '<\/p>');
 	document.write('<p class="serie"><strong>Serie (sorted) : <\/strong>' + serie5.getSortedlist() + '<\/p>');
@@ -354,7 +367,7 @@
 	var serie6 = new geostats(a6);
 
 	// we get Eq interval classification
-	serie6.getEqInterval(3);
+	serie6.getClassEqInterval(3);
 	var str  = '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie6.getRanges();
@@ -364,7 +377,7 @@
 	str += '<\/div>';
 
 	// we get Quantile classification
-	serie6.getQuantile(5);
+	serie6.getClassQuantile(5);
 	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie6.getRanges();
@@ -374,7 +387,7 @@
 	str += '<\/div>';
 
 	// we get Jenks classification
-	serie6.getJenks(4);
+	serie6.getClassJenks(4);
 	str += '<strong>Classification Method : <\/strong>' + serie6.method + " :\n";
 	str += '<div class="classes">';
 	var ranges = serie6.getRanges();
