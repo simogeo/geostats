@@ -1,3 +1,10 @@
+From version 1.1.0 to 1.2.0
+---------------------------
+- Introducing geometric progression classification (getGeometricProgression() method)
+- Introducing user defined classification (setManualClassification() method)
+- Introducing CommonJS and NodeJS or RequireJS module formats
+- Use of indexOf native version
+
 From version 1.0.0 to 1.1.0
 ---------------------------
 - Removing useless lib/jenks.util.js file
