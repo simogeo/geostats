@@ -4,6 +4,7 @@ From version 1.2.0 to 1.3.0
 - Fixing Quantile classification bug | issue #18
 - Modularisation, for use with nodeJS or requireJS  | issue #16
 - Ability to reverse legend order | issue #24 
+- Introducing a silent mode on input errors | issue #25
 
 From version 1.1.0 to 1.2.0
 ---------------------------

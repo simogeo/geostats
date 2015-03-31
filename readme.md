@@ -41,6 +41,8 @@ Attributes :
 - *bounds* : classification bounds
 - *ranges* : classification ranges
 - *colors* : classification colors
+- *debug* : default value `false`. When set to `true` , provide useful debug message regarding objects and properties.
+- *silent* :  default value `false`. If silent, do no trigger alert() message when inputs are incorrects but display console.log() messages
 
 
 Methods :
@@ -84,7 +86,7 @@ Methods :
 
 - *getRanges(array)* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
-- *getHtmlLegend(colors, legend, callback, mode)* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
+- *getHtmlLegend(colors, legend, callback, mode, order)* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
 - *getSortedlist()* : return the sorted serie in text format
 - *getClass()* : return a given value class
 
