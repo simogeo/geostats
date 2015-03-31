@@ -117,7 +117,7 @@
    			serie7.setPrecision(2);
    			var content_flare = serie7.getHtmlLegend(null, 'Customized legend, callback function (<em>here, values wrapped by strong tags<\/em>) and feature count', true, callback_sample, 'distinct');
 
-   			var content_legend3 = serie7.getHtmlLegend(null, 'Legend (real values, breaking continuous serie)', true, null, 'discontinuous');
+   			var content_legend3 = serie7.getHtmlLegend(null, 'Legend (real values, breaking continuous serie)', true, null, 'discontinuous', 'DESC');
 
    			jQuery('#method').html('<p><strong>Classification Method : <\/strong>' + serie7.method + '<\/p>');
    			jQuery('#legend p').before(content);
@@ -419,7 +419,7 @@
 			<p>Call to legend method with options : customized text, callback function and 'distinct' mode. Decimal precision has been set to 2.</p>
 		</div>
 		<div id="legend3" class="legend">
-			<p>Call to legend method with options : 'discontinuous' mode.</p>
+			<p>Call to legend method with options : 'discontinuous' mode, and descending order.</p>
 		</div>
 	</div>
 	<div style="clear:both"></div>
