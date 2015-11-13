@@ -1,5 +1,10 @@
 {
   "author": "Simon Georget <simon@empreinte-urbaine.eu>",
+  "contributors": [{
+    "name": "dreamind",
+    "email": "",
+    "url": "https://github.com/dreamind"
+  }],
   "name": "geostats",
   "description": "A tiny and standalone javascript library for classification and basic statistics",
   "version": "1.4.0",
@@ -12,10 +17,14 @@
     "statistics",
     "math"
   ],
+  "bugs": {
+    "url": "https://github.com/simogeo/geostats/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/simogeo/geostats.git"
   },
+
   "main": "./lib/geostats.min.js",
   "dependencies": {},
   "devDependencies": {},
