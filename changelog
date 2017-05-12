@@ -3,6 +3,8 @@ From version 1.5.0 to 1.6.0
 - Typo bug converting string to float | issue #32
 - Force precision to 20 if user defined is superior - to prevent browser error | issue #34
 - Mean calculation outside loop | issue #35
+- Min / Max methods handled without using Math function | supposed to prevent issue #33
+- Cast values to Float on decimalFormat method | issue #36
 
 From version 1.4.0 to 1.5.0
 ---------------------------
