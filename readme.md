@@ -87,7 +87,7 @@ Methods :
 
 - *getRanges(array)* : return an array of classes range (*ranges* value)
 - *getRangeNum()* : return the number/index of this.ranges that value falls into
-- *getHtmlLegend(colors, legend, callback, mode, order)* : return a legend in html format. Please refer [to code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L735) to know how about option.
+- *getHtmlLegend(colors, legend, callback, mode, order)* : return a legend in html format.<br>`colors` defines an array of colors; `legend` is used for giving the legend a different title; with `counter`, a particular counter value can be displayed; a function which should be applied to the legend boundaries is used in place of `callback`; `mode` is for different display modes of the value ranges; `order` refers to the sort order of values. For further details, please refer [to the code comment](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L1054) which accompanies the getHtmlLegend method.
 - *getSortedlist()* : return the sorted serie in text format
 - *getClass()* : return a given value class
 
