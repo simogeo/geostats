@@ -4,7 +4,7 @@ geostats
 
 [geostats](http://www.intermezzo-coop.eu/mapping/geostats/) is a tiny standalone JS library for classification released by [Simon Georget](http://www.intermezzo-coop.eu/)  under MIT license. 
 
-Other contributors : [Doug Curl](http://kgs.uky.edu/kgsmap/ukengage/) (Jenks algorithm), [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind), [cricri](https://github.com/cricri)
+Other contributors : [Doug Curl](http://kgs.uky.edu/kgsmap/ukengage/) (Jenks2 algorithm), [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind), [cricri](https://github.com/cricri)
 
 
 It currently supports
@@ -15,7 +15,7 @@ It currently supports
 - standard deviation
 - arithmetic progression
 - geometric progression
-- jenks (natural breaks)
+- jenks (natural breaks) - 2 methods
 - uniques values
 - user defined classification
 
@@ -70,7 +70,8 @@ Methods :
 - *getClassArithmeticProgression(nbClass)* : Perform an arithmetic progression classification and return bounds into an array. Alias : *getArithmeticProgression(nbClass)*
 - *getClassGeometricProgression(nbClass)* : Perform a geometric progression classification and return bounds into an array. Alias : *getGeometricProgression(nbClass)*
 - *getClassQuantile(nbClass)* : Perform a quantile classification and return bounds into an array. Alias : *getQuantile(nbClass)*
-- *getClassJenks(nbClass)* : Perform a Jenks classification and return bounds into an array. Alias : *getJenks(nbClass)*
+- *getClassJenks(nbClass)* : Perform a Jenks classification and return bounds into an array. Alias : *getJenks(nbClass)* - optimised version / see #49
+- *getClassJenks2(nbClass)* : Perform a Jenks classification and return bounds into an array. Alias : *getJenks2(nbClass)* - older version
 - *getClassUniqueValues()* : Perform a unique values classification and return bounds (values) into an array. Alias : *getUniqueValues()*
 - *setClassManually()* : Set a user defined classification based on passed array (Same array is returned). Useful to automatically set bounds/ranges and generate legend.
 
