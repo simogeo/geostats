@@ -1,6 +1,7 @@
 From version 1.8.0 to 2.0.0
 ---------------------------
 - Typescript compatibility | issue #51
+- Prevent Jenks breaks error when data.length is less than nbClass | issue #57
 - Switch from 1.8.0 to 2.0.0 because of npm error 
 
 
