@@ -6,6 +6,8 @@ geostats
 
 Other contributors : [Doug Curl](http://kgs.uky.edu/kgsmap/ukengage/) (Jenks2 algorithm), [Casey Thomas](http://cpt.ph/), [Dreamind](https://github.com/dreamind), [cricri](https://github.com/cricri)
 
+If you are looking for a TypeScript implementation of *geostats*, go for [GeoBuckets](https://github.com/mtralka/GeoBuckets)
+
 
 It currently supports
 --------------
