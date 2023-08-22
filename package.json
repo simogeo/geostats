@@ -7,7 +7,7 @@
   }],
   "name": "geostats",
   "description": "A tiny and standalone javascript library for classification and basic statistics",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "homepage": "https://github.com/simogeo/geostats",
   "keywords": [
     "mapping",
@@ -17,6 +17,15 @@
     "stats",
     "statistics",
     "math"
+  ],
+  "files": [
+    "lib/",
+    "tests/",
+    "bower.json",
+    "changelog",
+    "readme.md",
+    "sample.html",
+    "sample_shp.html"
   ],
   "bugs": {
     "url": "https://github.com/simogeo/geostats/issues"
